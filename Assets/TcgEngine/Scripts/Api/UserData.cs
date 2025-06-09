@@ -48,7 +48,7 @@ namespace TcgEngine
             cardbacks = new string[0];
             friends = new string[0];
             permission_level = 1;
-            coins = 10000;
+            coins = 0;
             elo = 1000;
         }
 

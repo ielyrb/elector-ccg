@@ -21,6 +21,7 @@ namespace TcgEngine
         public int mana = 0;
         public int attack = 0;
         public int hp = 0;
+        public int votes = 0;
 
         public int mana_ongoing = 0;
         public int attack_ongoing = 0;
@@ -56,6 +57,7 @@ namespace TcgEngine
 
         public virtual int GetAttack() { return Mathf.Max(attack + attack_ongoing, 0); }
         public virtual int GetHP() { return Mathf.Max(hp + hp_ongoing - damage, 0); }
+        public virtual int GetVotes() { return votes; }
         public virtual int GetHP(int offset) { return Mathf.Max(hp + hp_ongoing - damage + offset, 0); }
         public virtual int GetHPMax() { return Mathf.Max(hp + hp_ongoing, 0); }
         public virtual int GetMana() { return Mathf.Max(mana + mana_ongoing, 0); }

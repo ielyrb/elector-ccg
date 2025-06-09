@@ -26,6 +26,7 @@ namespace TcgEngine.UI
         public Text attack;
         public Text hp;
         public Text cost;
+        public Text votes;
 
         public Text card_title;
         public Text card_text;
@@ -58,6 +59,8 @@ namespace TcgEngine.UI
                 attack.text = card.GetAttack().ToString();
             if (hp != null)
                 hp.text = card.GetHP().ToString();
+            if (votes != null)
+                votes.text = card.GetVotes().ToString();
 
             foreach (TraitUI stat in stats)
                 stat.SetCard(card);
@@ -88,6 +91,8 @@ namespace TcgEngine.UI
                 hp_icon.enabled = card.IsBoardCard() || card.IsEquipment();
             if (hp != null)
                 hp.enabled = card.IsBoardCard() || card.IsEquipment();
+            if (votes != null)
+                votes.enabled = card.IsBoardCard();
             if (cost_icon != null)
                 cost_icon.enabled = card.type != CardType.Hero;
             if (cost != null)

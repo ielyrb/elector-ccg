@@ -78,7 +78,7 @@ namespace TcgEngine.Client
             WebResponse res = await ApiClient.Get().SendPostRequest(url, json);
             Debug.Log("Gain Reward: " + reward_id + " " + res.success);
             return res.success;
-        }
+        }        
 
         public bool IsRewardGained()
         {

@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Threading.Tasks;
 using UnityEngine.Networking;
 using UnityEngine.Events;
-
+using Xsolla.Auth;
 namespace TcgEngine
 {
     /// <summary>
@@ -31,6 +29,9 @@ namespace TcgEngine
         private bool expired = false;
 
         private UserData udata = null;
+
+        private string operation_id = "";
+        private UnityAction OnVerificationSuccess;
 
         private int sending = 0;
         private string last_error = "";
@@ -202,6 +203,43 @@ namespace TcgEngine
                 expired = false;
                 SaveTokens();
             }
+        }
+
+        public void XSollaSendCode(string email)
+        {
+            XsollaAuth.StartAuthByEmail(email, OnAuthByEmailSuccess, OnAuthByEmailFail);
+        }
+
+        public void XSollaVerifyCode(string email, string code, UnityAction onComplete)
+        {
+            if(operation_id == null)
+            {
+                Debug.Log("operation_id is null");
+                return;
+            }
+            XsollaAuth.CompleteAuthByEmail(email, code, operation_id, OnCompleteAuthByEmailSuccess, OnCompleteAuthByEmailFail);
+            OnVerificationSuccess = onComplete;
+        }
+
+        void OnAuthByEmailSuccess(OperationId op)
+        {
+            operation_id = op.operation_id;
+        }
+
+        void OnAuthByEmailFail(Xsolla.Core.Error err)
+        {
+            Debug.Log(err.ToString());
+        }
+
+        void OnCompleteAuthByEmailSuccess()
+        {
+            Debug.Log("XSolla Auth Success");
+            OnVerificationSuccess?.Invoke();
+        }
+
+        void OnCompleteAuthByEmailFail(Xsolla.Core.Error err)
+        {
+            Debug.Log(err.ToString());
         }
 
         public async Task<UserData> LoadUserData()

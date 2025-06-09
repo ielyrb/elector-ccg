@@ -80,6 +80,13 @@ namespace TcgEngine
         public string reward;
     }
 
+    [System.Serializable]
+    public class AddCoinsRequest
+    {
+        public string userId;
+        public int amount;
+    }
+
     [Serializable]
     public struct BuyPackRequest
     {

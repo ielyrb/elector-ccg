@@ -37,6 +37,7 @@ namespace TcgEngine
             TraitData.Load();
             VariantData.Load();
             PackData.Load();
+            CoinStoreData.Load();
             LevelData.Load();
             DeckData.Load();
             AbilityData.Load();
